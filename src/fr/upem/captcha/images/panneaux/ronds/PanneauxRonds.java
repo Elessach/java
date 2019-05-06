@@ -1,5 +1,5 @@
 package fr.upem.captcha.images.panneaux.ronds;
 
-public class PanneauxRonds {
+public class PanneauxRonds implements Images {
 
 }

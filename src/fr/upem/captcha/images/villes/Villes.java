@@ -1,5 +1,5 @@
 package fr.upem.captcha.images.villes;
 
-public class Villes {
+public class Villes implements Images {
 
 }
