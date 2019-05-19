@@ -28,33 +28,41 @@ import fr.upem.captcha.images.Type;
 
 public class Main{
 	
+
+	private static int difficulty = 3;
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
+	private static Grid grid = new Grid(difficulty);
+	private static JFrame frame = new JFrame("Captcha");
 	
 	public static void main(String[] args) throws IOException {
-		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
-		
-		Grid grid = new Grid(3);
-		GridLayout layout = createLayout(3);		
+		frame = createFrame();	
+	}
+	
+	private static JFrame createFrame(){
+		JFrame frame = new JFrame("Captcha");
+		GridLayout layout = createLayout(grid.getDifficulty());		
 		frame.setLayout(layout);  // affection du layout dans la fenêtre.
-		frame.setSize(1024, 768); // définition de la taille
+		frame.setSize(2048, 1536); // définition de la taille
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
-		
 		JButton okButton = createOkButton();
-		
 		Type t = new Type();
 		for(int i = 0 ; i < grid.getImagesNumber(); i++) {
 			URL u = t.getRandomPhotoURL();
-			frame.add(createLabelImage(u));
+			try {
+				frame.add(createLabelImage(u));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			grid.addImage(u);
 		}
 		grid.setCorrect();
 		
-		frame.add(new JTextArea("Cliquez n'importe où ... juste pour tester l'interface !"));
+		frame.add(new JTextArea("Cliquez sur les images représentants des " + grid.getCorrect().toLowerCase()));
 		frame.add(okButton);	
 		frame.setVisible(true);
+		return frame;
 	}
-	
 	
 	private static GridLayout createLayout(int i){
 		return new GridLayout(4, i);
@@ -69,7 +77,19 @@ public class Main{
 					
 					@Override
 					public void run() { // c'est un runnable
-						System.out.println("J'ai cliqué sur Ok");
+						if(grid.isCorrect(selectedImages)) {
+							JFrame alert = new JFrame("Message");
+							alert.setSize(2048, 1536); // définition de la taille
+							alert.setResizable(false);  // On définit la fenêtre comme non redimentionnable
+							frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
+							alert.add(new JTextArea("Bravo !"));
+							alert.setVisible(true);
+						}
+						else {
+							difficulty++;
+							grid = new Grid(difficulty);
+							frame = createFrame();
+						}
 					}
 				});
 			}

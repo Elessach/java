@@ -7,5 +7,4 @@ public interface Images {
 	public List<URL> getPhotos();
 	public List<URL> getRandomPhotosURL(int i);
 	public URL getRandomPhotoURL();
-	public boolean isPhotoCorrect(URL u);
 }

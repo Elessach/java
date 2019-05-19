@@ -11,6 +11,8 @@ import java.util.Random;
 public class Grid {
 	private int difficulty;
 	private List<URL> images;
+	private String correct = "";
+	private int nbCorrect = 0;
 	
 	public Grid(int d) {
 		this.difficulty = d;
@@ -23,15 +25,34 @@ public class Grid {
 	public void setCorrect() {
 		Random r = new Random();
 		int size = images.size();
-		URL correct = images.get(r.nextInt(size));
+		URL correctURL = images.get(r.nextInt(size));
+		correct = getClassNameFromURL(correctURL);
+		for(URL url : images) {
+			if(getClassNameFromURL(url).contentEquals(correct)) nbCorrect++;
+		}
+	}
+	
+	public boolean isCorrect(List<URL> selected) {
+		int n = 0;
+		for(URL url : selected) {
+			if(getClassNameFromURL(url).contentEquals(correct)) {
+				n++;
+			}
+		}
+		if (n == nbCorrect) return true;
+		else return false;
+	}
+	private String getClassNameFromURL(URL url) {
 		URI uri = null;
 		try {
-			uri = correct.toURI();
+			uri = url.toURI();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 		File f = new File(uri);
-		System.out.println(f.getParent());
+		File parent = f.getParentFile();
+		String parentName = parent.getName();
+		return parentName.substring(0, 1).toUpperCase() + parentName.substring(1);
 	}
 	
 	public int getDifficulty() {
@@ -39,6 +60,9 @@ public class Grid {
 	}
 	public int getImagesNumber() {
 		return difficulty * difficulty;
+	}
+	public String getCorrect() {
+		return correct;
 	}
 
 }

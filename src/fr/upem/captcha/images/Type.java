@@ -46,7 +46,4 @@ public class Type implements Images{
 		return tmp.get(i);
 	}
 
-	public boolean isPhotoCorrect(URL u) {
-		return getPhotos().contains(u);
-	}
 }
