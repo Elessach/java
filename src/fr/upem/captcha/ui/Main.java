@@ -9,8 +9,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -21,8 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-import fr.upem.captcha.images.panneaux.Panneaux;
-import fr.upem.captcha.images.villes.Villes;
+import fr.upem.captcha.images.Type;
 
 public class Main{
 	
@@ -31,26 +33,25 @@ public class Main{
 	public static void main(String[] args) throws IOException {
 		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 		
-		int difficulty = 3;
-		GridLayout layout = createLayout(difficulty);  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
-		
+		Grid grid = new Grid(3);
+		GridLayout layout = createLayout(3);		
 		frame.setLayout(layout);  // affection du layout dans la fenêtre.
 		frame.setSize(1024, 768); // définition de la taille
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
 		
-		Panneaux p = new Panneaux();
-		for(int i = 0; i < difficulty * difficulty ; i++) {
-			frame.add(createLabelImage(p.getRandomPhotoURL()));
-		}
-		
 		JButton okButton = createOkButton();
-
+		
+		Type t = new Type();
+		for(int i = 0 ; i < grid.getImagesNumber(); i++) {
+			URL u = t.getRandomPhotoURL();
+			frame.add(createLabelImage(u));
+			grid.addImage(u);
+		}
+		grid.setCorrect();
+		
 		frame.add(new JTextArea("Cliquez n'importe où ... juste pour tester l'interface !"));
-		
-		frame.add(okButton);
-		
+		frame.add(okButton);	
 		frame.setVisible(true);
 	}
 	
