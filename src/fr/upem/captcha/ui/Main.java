@@ -21,6 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import fr.upem.captcha.images.panneaux.Panneaux;
+import fr.upem.captcha.images.villes.Villes;
+
 public class Main{
 	
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
@@ -36,23 +39,12 @@ public class Main{
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
 		 
+		Panneaux v = new Panneaux();
+		v.getPhotos();
 		
 		JButton okButton = createOkButton();
 
-		frame.add(createLabelImage("centre ville.jpg")); //ajouter des composants à la fenêtre
-		frame.add(createLabelImage("le havre.jpg"));
-		frame.add(createLabelImage("panneau 70.jpg"));
-		frame.add(createLabelImage("panneaubleu-carre.jpeg"));
-		frame.add(createLabelImage("parking.jpg"));
-		frame.add(createLabelImage("route panneau.jpg"));
-		frame.add(createLabelImage("tour eiffel.jpg"));
-		frame.add(createLabelImage("ville espace verts.jpg"));
-		frame.add(createLabelImage("voie pieton.jpg"));
-		
-		
-		
 		frame.add(new JTextArea("Cliquez n'importe où ... juste pour tester l'interface !"));
-		
 		
 		frame.add(okButton);
 		

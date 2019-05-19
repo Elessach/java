@@ -1,5 +1,6 @@
 package fr.upem.captcha.images.ponts;
 
-public class Ponts implements Images {
+import fr.upem.captcha.images.Type;
 
+public class Ponts extends Type{
 }

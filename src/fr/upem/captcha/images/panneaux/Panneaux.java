@@ -1,6 +1,6 @@
 package fr.upem.captcha.images.panneaux;
 
-public class Panneaux implements Images {
+import fr.upem.captcha.images.Type;
 
-
+public class Panneaux extends Type{
 }
