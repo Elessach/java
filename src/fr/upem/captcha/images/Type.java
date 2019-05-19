@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Type implements Images{
 
@@ -17,7 +18,6 @@ public class Type implements Images{
 	private void getAllPhotos(File f, List<URL> u) {
 		for(File i : f.listFiles()) {
 			if(i.getName().toLowerCase().endsWith(".jpg")) {
-				System.out.println(i.getAbsolutePath());
 				try {
 					u.add(i.toURI().toURL());
 				} catch (MalformedURLException e) {
@@ -31,13 +31,19 @@ public class Type implements Images{
 	}
 
 	public List<URL> getRandomPhotosURL(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		List<URL> result = new ArrayList<URL>();
+		for(int j = 0; j < i ; j++) {
+			result.add(getRandomPhotoURL());
+		}
+		return result;
 	}
 
 	public URL getRandomPhotoURL() {
-		// TODO Auto-generated method stub
-		return null;
+		List<URL> tmp = getPhotos();
+		int size = tmp.size();
+		Random r = new Random();
+		int i = r.nextInt(size);
+		return tmp.get(i);
 	}
 
 	public boolean isPhotoCorrect(URL u) {

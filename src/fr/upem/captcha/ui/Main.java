@@ -29,18 +29,21 @@ public class Main{
 	private static ArrayList<URL> selectedImages = new ArrayList<URL>();
 	
 	public static void main(String[] args) throws IOException {
-		JFrame frame = new JFrame("Capcha"); // Création de la fenêtre principale
+		JFrame frame = new JFrame("Captcha"); // Création de la fenêtre principale
 		
-		GridLayout layout = createLayout();  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
+		int difficulty = 3;
+		GridLayout layout = createLayout(difficulty);  // Création d'un layout de type Grille avec 4 lignes et 3 colonnes
 		
 		frame.setLayout(layout);  // affection du layout dans la fenêtre.
 		frame.setSize(1024, 768); // définition de la taille
 		frame.setResizable(false);  // On définit la fenêtre comme non redimentionnable
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Lorsque l'on ferme la fenêtre on quitte le programme.
-		 
-		Panneaux v = new Panneaux();
-		v.getPhotos();
+		
+		Panneaux p = new Panneaux();
+		for(int i = 0; i < difficulty * difficulty ; i++) {
+			frame.add(createLabelImage(p.getRandomPhotoURL()));
+		}
 		
 		JButton okButton = createOkButton();
 
@@ -52,8 +55,8 @@ public class Main{
 	}
 	
 	
-	private static GridLayout createLayout(){
-		return new GridLayout(4,3);
+	private static GridLayout createLayout(int i){
+		return new GridLayout(4, i);
 	}
 	
 	private static JButton createOkButton(){
@@ -72,11 +75,9 @@ public class Main{
 		});
 	}
 	
-	private static JLabel createLabelImage(String imageLocation) throws IOException{
-		
-		final URL url = Main.class.getResource(imageLocation); //Aller chercher les images !! IMPORTANT 
-		
-		System.out.println(url); 
+	private static JLabel createLabelImage(URL url) throws IOException{
+				
+		//System.out.println(url); 
 		
 		BufferedImage img = ImageIO.read(url); //lire l'image
 		Image sImage = img.getScaledInstance(1024/3,768/4, Image.SCALE_SMOOTH); //redimentionner l'image
@@ -93,7 +94,7 @@ public class Main{
 			
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-		
+				
 			}
 			
 			@Override
