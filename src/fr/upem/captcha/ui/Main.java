@@ -30,9 +30,9 @@ import fr.upem.captcha.images.Type;
 public class Main{
 	
 	// constantes & paramètres
-	private static final int WINDOW_WIDTH = 2048;
-	private static final int WINDOW_HEIGHT = 1538;
-	private static final int FONT_SIZE = 45;
+	private static final int WINDOW_WIDTH = 1024;
+	private static final int WINDOW_HEIGHT = 769;
+	private static final int FONT_SIZE = 30;
 	private static final String FONT_NAME = "Courrier";
 	
 	// variables statiques
@@ -85,7 +85,7 @@ public class Main{
 		grid.setCorrect();							// défintion du type d'image à sélectionner
 	}
 	
-	// crée du texte à afficher
+	// créer du texte à afficher
 	private static JTextArea createTextArea(String text) {
 		JTextArea result = new JTextArea(text);
 		result.setFont(new Font(FONT_NAME, Font.BOLD, FONT_SIZE));	// paramètres de la police
@@ -93,7 +93,7 @@ public class Main{
 		return result;
 	}
 	
-	// crée une grille
+	// créer une grille
 	private static GridLayout createLayout(int i){
 		return new GridLayout(4, i);
 	}
@@ -104,7 +104,7 @@ public class Main{
 		alert.setVisible(true);
 	}
 	
-	// crée le bouton de vérification
+	// créer le bouton de vérification
 	private static JButton createOkButton(){
 		JButton button = new JButton(new AbstractAction("Vérifier") {	//ajouter l'action du bouton
 			
