@@ -25,7 +25,9 @@ public class Grid {
 	public void setCorrect() {
 		Random r = new Random();
 		int size = images.size();
-		URL correctURL = images.get(r.nextInt(size));
+		int i = r.nextInt(size);
+		System.out.println(i);
+		URL correctURL = images.get(i);
 		correct = getClassNameFromURL(correctURL);
 		for(URL url : images) {
 			if(getClassNameFromURL(url).contentEquals(correct)) nbCorrect++;
@@ -59,7 +61,7 @@ public class Grid {
 		return difficulty;
 	}
 	public int getImagesNumber() {
-		return difficulty * difficulty;
+		return difficulty * 3;
 	}
 	public String getCorrect() {
 		return correct;
