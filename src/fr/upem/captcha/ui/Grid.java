@@ -17,6 +17,9 @@ public class Grid {
 	// constructeur par paramètres
 	public Grid(int d) {
 		this.difficulty = d;
+		System.out.println(d);
+		System.out.println(getImagesNumber());
+		
 	}
 	
 	// ajout d'une image par son url aux images de la grille

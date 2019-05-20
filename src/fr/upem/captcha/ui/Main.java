@@ -98,6 +98,13 @@ public class Main{
 		return new GridLayout(4, i);
 	}
 	
+	private static void createAlert(String message) {
+		JFrame alert = createFrame("Message");
+		alert.add(createTextArea(message));
+		alert.setVisible(true);
+	}
+	
+	// crée le bouton de vérification
 	private static JButton createOkButton(){
 		JButton button = new JButton(new AbstractAction("Vérifier") {	//ajouter l'action du bouton
 			
@@ -108,13 +115,12 @@ public class Main{
 					@Override
 					public void run() { 
 						if(grid.isCorrect(selectedImages)) {			// si sélection ok alors message d'alerte		
-							JFrame alert = createFrame("Message");
-							alert.add(createTextArea("BRAVO !"));
-							alert.setVisible(true);
+							createAlert("BRAVO !");
 						}
 						else {											// si sélection incorrecte, création d'un nouveau captcha avec plus d'éléments
 							difficulty++;
 							grid = new Grid(difficulty);
+							frame.dispose();
 							frame = createCaptcha();
 						}
 					}
