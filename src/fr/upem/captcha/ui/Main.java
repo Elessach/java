@@ -34,6 +34,7 @@ public class Main{
 	private static final int WINDOW_HEIGHT = 769;
 	private static final int FONT_SIZE = 30;
 	private static final String FONT_NAME = "Courrier";
+	private static final int MAX_DIFFICULTY = 5;
 	
 	// variables statiques
 	private static int difficulty = 3; 										// établit le niveau de difficulter premier
@@ -118,10 +119,13 @@ public class Main{
 							createAlert("BRAVO !");
 						}
 						else {											// si sélection incorrecte, création d'un nouveau captcha avec plus d'éléments
-							difficulty++;
-							grid = new Grid(difficulty);
-							frame.dispose();
-							frame = createCaptcha();
+							if(difficulty == MAX_DIFFICULTY) createAlert("Nombre de tentatives atteintes");
+							else {
+								difficulty++;
+								grid = new Grid(difficulty);
+								frame.dispose();
+								frame = createCaptcha();
+							}
 						}
 					}
 				});
